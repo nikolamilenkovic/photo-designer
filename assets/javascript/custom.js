@@ -41,8 +41,7 @@ app.controller('PhotoEditorController', ['$scope', 'instagram', function ($scope
 	$scope.settings.fontSize = "40";
 	$scope.settings.textWidth = 0.7;
 	$scope.settings.font = "Times New Roman";
-
-	$scope.font = {};
+	$scope.settings.textVerticalPosition = 0;
 
 	$scope.output = {};
 	$scope.output.image = "";
@@ -95,10 +94,10 @@ app.controller('PhotoEditorController', ['$scope', 'instagram', function ($scope
 				var textWidth = context.measureText(lines[i]).width;
 
 				context.fillStyle = $scope.settings.shadowColor;
-				context.fillText(lines[i], (height - textWidth) / 2 + 1, top + fontSizePx * (i + 1) + 1);
+				context.fillText(lines[i], (height - textWidth) / 2 + 1, top + fontSizePx * (i + 1) + 1 + $scope.settings.textVerticalPosition);
 
 				context.fillStyle = $scope.settings.textColor;
-				context.fillText(lines[i], (height - textWidth) / 2, top + fontSizePx * (i + 1));
+				context.fillText(lines[i], (height - textWidth) / 2, top + fontSizePx * (i + 1) + $scope.settings.textVerticalPosition);
 			}
 
 			document.getElementById("imageOut").src = canvas.toDataURL("image/png");

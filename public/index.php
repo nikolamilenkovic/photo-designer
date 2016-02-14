@@ -37,6 +37,10 @@
 							<label for="settings.textWidth">Text width</label>
 							<slider ng-model="settings.textWidth" name="settings.textWidth" ng-change="rerender()" min="0.1" step="0.1" max="1.0"></slider>
 						</div>
+						<div class="form-group">
+							<label for="settings.textVerticalPosition">Text vertical position</label>
+							<slider ng-model="settings.textVerticalPosition" name="settings.textVerticalPosition" ng-change="rerender()" min="-340" step="1" max="340"></slider>
+						</div>
 					</div>
 				</div>
 				<div class="col-md-4">
@@ -70,6 +74,6 @@
 				</div>
 			</div>
 		</div>		
-		<script src="./assets/javascript/javascript.js"></script> 
+		<script src="./assets/javascript/javascript.min.js"></script> 
 	</body>
 </html>
