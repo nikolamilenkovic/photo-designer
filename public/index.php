@@ -69,7 +69,7 @@
 						<h1>Step 3 - Result</h1>
 
 						<canvas id="image" style="display: none"></canvas>
-						<img id="imageOut" src="http://placehold.it/640x640" style="width: 100%" class="thumbnail" />
+						<img id="imageOut" src="https://placehold.it/640x640" style="width: 100%" class="thumbnail" />
 					</div>
 				</div>
 			</div>
