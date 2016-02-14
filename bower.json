@@ -1,0 +1,18 @@
+{
+  "name": "photo-designer",
+  "authors": [
+    "Nemanja Nedeljković <nemanjan00@gmail.com>"
+  ],
+  "description": "Photo designer",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "homepage": "https://nemanjan00.org/",
+  "dependencies": {
+    "angular-bootstrap-colorpicker": "buberdds/angular-bootstrap-colorpicker#~3.0.24",
+    "bootstrap": "~3.3.6",
+    "angular": "~1.5.0",
+    "angular-bootstrap-slider": "seiyria/angular-bootstrap-slider#~0.1.26",
+    "seiyria-bootstrap-slider": "seiyria/bootstrap-slider#~6.0.17"
+  }
+}
