@@ -44403,8 +44403,6 @@ app.controller('PhotoEditorController', ['$scope', 'instagram', function ($scope
 		instagram.fetchHashtag($scope.instagram.query, function(data){
 			$scope.instagram.selected = -1;
 			$scope.instagram.pics = data;
-
-			console.log(data);
 		});
 	}
 
