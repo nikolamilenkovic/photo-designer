@@ -40,6 +40,9 @@ app.controller('PhotoEditorController', ['$scope', 'instagram', function ($scope
 	$scope.settings.shadowColor = "#000000";
 	$scope.settings.fontSize = "40";
 	$scope.settings.textWidth = 0.7;
+	$scope.settings.font = "Times New Roman";
+
+	$scope.font = {};
 
 	$scope.output = {};
 	$scope.output.image = "";
@@ -82,7 +85,7 @@ app.controller('PhotoEditorController', ['$scope', 'instagram', function ($scope
 
 		imageObj.onload = function(){
 			context.drawImage(imageObj, 0, 0, width, height);
-			context.font = fontSizePt+"pt Cambria";
+			context.font = fontSizePt+"pt "+$scope.settings.font;
 
 			var lines = $scope.getLines(context, $scope.settings.text, width*$scope.settings.textWidth);
 

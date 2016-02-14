@@ -30,13 +30,13 @@
 
 						<div class="form-group">
 							<label for="settings.fontSize">Font size</label>
+							<slider ng-model="settings.fontSize" name="settings.fontSize" ng-change="rerender()" min="1" step="1" max="100"></slider>
 							<input ng-model="settings.fontSize" ng-model-options="{ updateOn: 'blur' }" name="settings.fontSize" ng-change="rerender()" type="text" class="form-control">
 						</div>
 						<div class="form-group">
 							<label for="settings.textWidth">Text width</label>
 							<slider ng-model="settings.textWidth" name="settings.textWidth" ng-change="rerender()" min="0.1" step="0.1" max="1.0"></slider>
 						</div>
-
 					</div>
 				</div>
 				<div class="col-md-4">
@@ -70,6 +70,6 @@
 				</div>
 			</div>
 		</div>		
-		<script src="./assets/javascript/javascript.min.js"></script> 
+		<script src="./assets/javascript/javascript.js"></script> 
 	</body>
 </html>
