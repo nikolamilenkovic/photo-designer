@@ -58,7 +58,7 @@
 
 							<li style="width:100%" ng-repeat="(id, p) in instagram.pics" ng-click="instagram.select(id)">
 								<div class="thumbnail" ng-class="{selected: instagram.isSelected(id)}">
-									<img style="width:100%;" ng-src="{{p.images.low_resolution.url}}"/>
+									<img style="width:100%;" ng-src="{{'https://crossorigin.me/' + p.images.low_resolution.url}}"/>
 								</div>
 							</li>
 						</ul>
