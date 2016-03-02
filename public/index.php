@@ -53,6 +53,12 @@
 								<button class="btn btn-default" ng-click="instagram.search()" type="button">Go!</button>
 							</span>
 						</div>
+						<div class="input-group search">
+							<input placeholder="URL..." ng-model="url" ng-model-options="{ updateOn: 'blur' }" name="url" ng-change="rerender()" type="text" class="form-control">
+							<span class="input-group-btn">
+								<button class="btn btn-default" ng-click="rerender()" type="button">Go!</button>
+							</span>
+						</div>
 
 						<ul class="thumbnails image_picker_selector">
 
@@ -74,6 +80,6 @@
 				</div>
 			</div>
 		</div>		
-		<script src="./assets/javascript/javascript.min.js"></script> 
+		<script src="./assets/javascript/javascript.js"></script> 
 	</body>
 </html>

@@ -34,6 +34,8 @@ app.controller('PhotoEditorController', ['$scope', 'instagram', function ($scope
 	$scope.instagram.query = "women";
 	$scope.instagram.selected = -1;
 
+	$scope.url = "";
+
 	$scope.settings = {};
 	$scope.settings.text = "Žene UVEK tačno ZNAJU šta rade, ali NIKAD ne znaju šta HOĆE! ";
 	$scope.settings.textColor = "#ffffff";
@@ -56,11 +58,13 @@ app.controller('PhotoEditorController', ['$scope', 'instagram', function ($scope
 	$scope.instagram.select = function(id){
 		$scope.instagram.selected = id;
 
+		$scope.url = $scope.instagram.pics[$scope.instagram.selected].images.standard_resolution.url;
+
 		$scope.rerender();
 	}
 
 	$scope.rerender = function(){
-		if($scope.instagram.selected == -1) return false;
+		if($scope.url == "") return false;
 		
 		var width = 640;
 		var height = 640;
@@ -71,16 +75,20 @@ app.controller('PhotoEditorController', ['$scope', 'instagram', function ($scope
 
 		var canvas = document.getElementById("image");
 
-		canvas.width = width;
-		canvas.height = height;
-
-		var context = canvas.getContext("2d");
 
 		var imageObj = new Image();
 
 		imageObj.crossOrigin = "Anonymous";
 
 		imageObj.onload = function(){
+			var scale = height / imageObj.height;
+			width = imageObj.width * scale;
+
+			canvas.width = width;
+			canvas.height = height;
+
+			var context = canvas.getContext("2d");
+
 			context.drawImage(imageObj, 0, 0, width, height);
 			context.font = fontSizePt+"pt "+$scope.settings.font;
 
@@ -92,15 +100,15 @@ app.controller('PhotoEditorController', ['$scope', 'instagram', function ($scope
 				var textWidth = context.measureText(lines[i]).width;
 
 				context.fillStyle = $scope.settings.shadowColor;
-				context.fillText(lines[i], (height - textWidth) / 2 + 1, top + fontSizePx * (i + 1) + 1 + $scope.settings.textVerticalPosition);
+				context.fillText(lines[i], (width - textWidth) / 2 + 1, top + fontSizePx * (i + 1) + 1 + $scope.settings.textVerticalPosition);
 
 				context.fillStyle = $scope.settings.textColor;
-				context.fillText(lines[i], (height - textWidth) / 2, top + fontSizePx * (i + 1) + $scope.settings.textVerticalPosition);
+				context.fillText(lines[i], (width - textWidth) / 2, top + fontSizePx * (i + 1) + $scope.settings.textVerticalPosition);
 			}
 
 			document.getElementById("imageOut").src = canvas.toDataURL("image/png");
 		};
-		imageObj.src = "https://crossorigin.me/"+$scope.instagram.pics[$scope.instagram.selected].images.standard_resolution.url; 
+		imageObj.src = "https://crossorigin.me/"+$scope.url; 
 	}
 
 	$scope.getLines = function(ctx, text, maxWidth) {
