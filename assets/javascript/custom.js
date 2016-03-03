@@ -108,7 +108,7 @@ app.controller('PhotoEditorController', ['$scope', 'instagram', function ($scope
 
 			document.getElementById("imageOut").src = canvas.toDataURL("image/png");
 		};
-		imageObj.src = "https://crossorigin.me/"+$scope.url; 
+		imageObj.src = "http://proxy.ubuntu.nemanjan00.org/"+$scope.url; 
 	}
 
 	$scope.getLines = function(ctx, text, maxWidth) {
