@@ -8,6 +8,8 @@ module.exports = function(grunt) {
 			},
 			js_frontend: {
 				src: [
+					'./bower_components/stackblur-canvas/dist/stackblur.js',
+
 					'./bower_components/jquery/dist/jquery.js',
 
 					'./bower_components/bootstrap/dist/js/bootstrap.js',

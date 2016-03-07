@@ -41,6 +41,10 @@
 							<label for="settings.textVerticalPosition">Text vertical position</label>
 							<slider ng-model="settings.textVerticalPosition" name="settings.textVerticalPosition" ng-change="rerender()" min="-340" step="1" max="340"></slider>
 						</div>
+						<div class="form-group">
+							<label for="settings.radius">Blur radius</label>
+							<slider ng-model="settings.radius" name="settings.radius" ng-change="rerender()" min="0" step="1" max="180"></slider>
+						</div>
 					</div>
 				</div>
 				<div class="col-md-4">

@@ -13,6 +13,7 @@
     "bootstrap": "~3.3.6",
     "angular": "~1.5.0",
     "angular-bootstrap-slider": "seiyria/angular-bootstrap-slider#~0.1.26",
-    "seiyria-bootstrap-slider": "seiyria/bootstrap-slider#~6.0.17"
+    "seiyria-bootstrap-slider": "seiyria/bootstrap-slider#~6.0.17",
+    "stackblur-canvas": "~1.2.0"
   }
 }

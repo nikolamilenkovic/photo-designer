@@ -44,6 +44,7 @@ app.controller('PhotoEditorController', ['$scope', 'instagram', function ($scope
 	$scope.settings.textWidth = 0.7;
 	$scope.settings.font = "Times New Roman";
 	$scope.settings.textVerticalPosition = 0;
+	$scope.settings.radius = 0;
 
 	$scope.output = {};
 	$scope.output.image = "";
@@ -81,32 +82,45 @@ app.controller('PhotoEditorController', ['$scope', 'instagram', function ($scope
 		imageObj.crossOrigin = "Anonymous";
 
 		imageObj.onload = function(){
-			var scale = height / imageObj.height;
-			width = imageObj.width * scale;
+			StackBlur.image(imageObj, canvas, $scope.settings.radius, true);
 
-			canvas.width = width;
-			canvas.height = height;
+			var src = canvas.toDataURL("image/png");
 
-			var context = canvas.getContext("2d");
+			var img = document.createElement('img');
+			img.src = src;
 
-			context.drawImage(imageObj, 0, 0, width, height);
-			context.font = fontSizePt+"pt "+$scope.settings.font;
+			img.onload = function(){
+				var scale = height / imageObj.height;
+				width = imageObj.width * scale;
 
-			var lines = $scope.getLines(context, $scope.settings.text, width*$scope.settings.textWidth);
+				canvas.width = width;
+				canvas.height = height;
 
-			var top = (height - lines.length * fontSizePx) / 2;
+				imageObj.width = width;
+				imageObj.height = height;
 
-			for(i = 0; i < lines.length; i++){
-				var textWidth = context.measureText(lines[i]).width;
+				var context = canvas.getContext("2d");
 
-				context.fillStyle = $scope.settings.shadowColor;
-				context.fillText(lines[i], (width - textWidth) / 2 + 1, top + fontSizePx * (i + 1) + 1 + $scope.settings.textVerticalPosition);
+				context.drawImage(img, 0, 0, width, height);
+				
+				context.font = fontSizePt+"pt "+$scope.settings.font;
 
-				context.fillStyle = $scope.settings.textColor;
-				context.fillText(lines[i], (width - textWidth) / 2, top + fontSizePx * (i + 1) + $scope.settings.textVerticalPosition);
+				var lines = $scope.getLines(context, $scope.settings.text, width*$scope.settings.textWidth);
+
+				var top = (height - lines.length * fontSizePx) / 2;
+
+				for(i = 0; i < lines.length; i++){
+					var textWidth = context.measureText(lines[i]).width;
+
+					context.fillStyle = $scope.settings.shadowColor;
+					context.fillText(lines[i], (width - textWidth) / 2 + 1, top + fontSizePx * (i + 1) + 1 + $scope.settings.textVerticalPosition);
+
+					context.fillStyle = $scope.settings.textColor;
+					context.fillText(lines[i], (width - textWidth) / 2, top + fontSizePx * (i + 1) + $scope.settings.textVerticalPosition);
+				}
+
+				document.getElementById("imageOut").src = canvas.toDataURL("image/png");
 			}
-
-			document.getElementById("imageOut").src = canvas.toDataURL("image/png");
 		};
 		imageObj.src = "http://proxy.ubuntu.nemanjan00.org/"+$scope.url; 
 	}
