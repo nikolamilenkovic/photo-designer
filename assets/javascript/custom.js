@@ -29,6 +29,9 @@ app.directive('myEnter', function () {
 });
 
 app.controller('PhotoEditorController', ['$scope', 'instagram', function ($scope, instagram){
+	var wathermark = new Image();
+	wathermark.src = "./assets/images/wathermark.png"
+	
 	$scope.instagram = {};
 	$scope.instagram.pics = [];
 	$scope.instagram.query = "women";
@@ -103,6 +106,8 @@ app.controller('PhotoEditorController', ['$scope', 'instagram', function ($scope
 
 				context.drawImage(img, 0, 0, width, height);
 				
+				context.drawImage(wathermark, width - wathermark.width, height - wathermark.height, wathermark.width, wathermark.height);
+
 				context.font = fontSizePt+"pt "+$scope.settings.font;
 
 				var lines = $scope.getLines(context, $scope.settings.text, width*$scope.settings.textWidth);
