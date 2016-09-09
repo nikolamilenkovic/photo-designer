@@ -46069,7 +46069,7 @@ app.factory('shutterstock', ['$http', function($http){
 			var endPoint = "https://shutterstock.nemanja.top/?q="+hashtag+"&json";
 			
 			$http.get(endPoint).success(function(response){
-				callback(response.data);
+				callback(response);
 			});
 		}
 	}
