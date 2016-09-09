@@ -46096,7 +46096,7 @@ app.controller('PhotoEditorController', ['$scope', 'shutterstock', function ($sc
 	
 	$scope.instagram = {};
 	$scope.instagram.pics = [];
-	$scope.instagram.query = "women";
+	$scope.instagram.query = "texture";
 	$scope.instagram.selected = -1;
 
 	$scope.url = "";
