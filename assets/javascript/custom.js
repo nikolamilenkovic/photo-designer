@@ -6,7 +6,7 @@ app.factory('shutterstock', ['$http', function($http){
 			
 			var endPoint = "https://shutterstock.nemanja.top/?q="+hashtag+"&json";
 			
-			$http.jsonp(endPoint).success(function(response){
+			$http.get(endPoint).success(function(response){
 				callback(response.data);
 			});
 		}
@@ -28,7 +28,7 @@ app.directive('myEnter', function () {
 	};
 });
 
-app.controller('PhotoEditorController', ['$scope', 'instagram', function ($scope, instagram){
+app.controller('PhotoEditorController', ['$scope', 'shutterstock', function ($scope, shutterstock){
 	var wathermark = new Image();
 	wathermark.src = "./assets/images/wathermark.png"
 	
@@ -53,7 +53,7 @@ app.controller('PhotoEditorController', ['$scope', 'instagram', function ($scope
 	$scope.output.image = "";
 
 	$scope.instagram.search = function(){
-		instagram.fetchHashtag($scope.instagram.query, function(data){
+		shutterstock.fetchHashtag($scope.instagram.query, function(data){
 			$scope.instagram.selected = -1;
 			$scope.instagram.pics = data;
 		});
