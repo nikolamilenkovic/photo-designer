@@ -46062,11 +46062,11 @@ angular.module('ui.bootstrap-slider', [])
 ;
 });;var app = angular.module("PhotoDesigner", ['colorpicker.module', 'ui.bootstrap-slider']);
 
-app.factory('instagram', ['$http', function($http){
+app.factory('shutterstock', ['$http', function($http){
 	return {
 		fetchHashtag: function(hashtag, callback){
 			
-			var endPoint = "https://api.instagram.com/v1/tags/"+hashtag+"/media/recent?client_id=b3f015378629453bb81e690b0a1cd188&callback=JSON_CALLBACK";
+			var endPoint = "https://shutterstock.nemanja.top/?q="+hashtag+"&json";
 			
 			$http.jsonp(endPoint).success(function(response){
 				callback(response.data);
@@ -46090,7 +46090,7 @@ app.directive('myEnter', function () {
 	};
 });
 
-app.controller('PhotoEditorController', ['$scope', 'instagram', function ($scope, instagram){
+app.controller('PhotoEditorController', ['$scope', 'shutterstock', function ($scope, shutterstock){
 	var wathermark = new Image();
 	wathermark.src = "./assets/images/wathermark.png"
 	
@@ -46115,7 +46115,7 @@ app.controller('PhotoEditorController', ['$scope', 'instagram', function ($scope
 	$scope.output.image = "";
 
 	$scope.instagram.search = function(){
-		instagram.fetchHashtag($scope.instagram.query, function(data){
+		shutterstock.fetchHashtag($scope.instagram.query, function(data){
 			$scope.instagram.selected = -1;
 			$scope.instagram.pics = data;
 		});
@@ -46124,7 +46124,7 @@ app.controller('PhotoEditorController', ['$scope', 'instagram', function ($scope
 	$scope.instagram.select = function(id){
 		$scope.instagram.selected = id;
 
-		$scope.url = $scope.instagram.pics[$scope.instagram.selected].images.standard_resolution.url;
+		$scope.url = $scope.instagram.pics[$scope.instagram.selected].url;
 
 		$scope.rerender();
 	}
