@@ -46116,6 +46116,7 @@ app.controller('PhotoEditorController', ['$scope', 'shutterstock', function ($sc
 
 	$scope.instagram.search = function(){
 		shutterstock.fetchHashtag($scope.instagram.query, function(data){
+			console.log(data);
 			$scope.instagram.selected = -1;
 			$scope.instagram.pics = data;
 		});
