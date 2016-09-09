@@ -128,7 +128,7 @@ app.controller('PhotoEditorController', ['$scope', 'shutterstock', function ($sc
 				document.getElementById("imageOut").src = canvas.toDataURL("image/png");
 			}
 		};
-		imageObj.src = "http://proxy.ubuntu.nemanjan00.org/"+$scope.url; 
+		imageObj.src = "https://cors.nemanja.top/"+$scope.url; 
 	}
 
 	$scope.getLines = function(ctx, text, maxWidth) {

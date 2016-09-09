@@ -68,7 +68,7 @@
 
 							<li style="width:100%" ng-repeat="(id, p) in instagram.pics" ng-click="instagram.select(id)">
 								<div class="thumbnail" ng-class="{selected: instagram.isSelected(id)}">
-									<img style="width:100%;" ng-src="{{'http://proxy.ubuntu.nemanjan00.org/' + p.preview.url}}"/>
+									<img style="width:100%;" ng-src="{{'https://cors.nemanja.top/' + p.preview.url}}"/>
 								</div>
 							</li>
 						</ul>
