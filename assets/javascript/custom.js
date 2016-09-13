@@ -1,13 +1,13 @@
 var app = angular.module("PhotoDesigner", ['colorpicker.module', 'ui.bootstrap-slider']);
 
-app.factory('shutterstock', ['$http', function($http){
+app.factory('unsplash', ['$http', function($http){
 	return {
 		fetchHashtag: function(hashtag, callback){
 			
-			var endPoint = "https://shutterstock.nemanja.top/?q="+hashtag+"&json";
+			var endPoint = "https://cors.nemanja.top/https://pablo.buffer.com/ajax/unsplash?search="+hashtag;
 			
 			$http.get(endPoint).success(function(response){
-				callback(response);
+				callback(response.photos);
 			});
 		}
 	}
@@ -28,7 +28,7 @@ app.directive('myEnter', function () {
 	};
 });
 
-app.controller('PhotoEditorController', ['$scope', 'shutterstock', function ($scope, shutterstock){
+app.controller('PhotoEditorController', ['$scope', 'unsplash', function ($scope, unsplash){
 	var wathermark = new Image();
 	wathermark.src = "./assets/images/wathermark.png"
 	
@@ -53,7 +53,7 @@ app.controller('PhotoEditorController', ['$scope', 'shutterstock', function ($sc
 	$scope.output.image = "";
 
 	$scope.instagram.search = function(){
-		shutterstock.fetchHashtag($scope.instagram.query, function(data){
+		unsplash.fetchHashtag($scope.instagram.query, function(data){
 			console.log(data);
 			$scope.instagram.selected = -1;
 			$scope.instagram.pics = data;
@@ -63,7 +63,7 @@ app.controller('PhotoEditorController', ['$scope', 'shutterstock', function ($sc
 	$scope.instagram.select = function(id){
 		$scope.instagram.selected = id;
 
-		$scope.url = $scope.instagram.pics[$scope.instagram.selected].url;
+		$scope.url = $scope.instagram.pics[$scope.instagram.selected][1];
 
 		$scope.rerender();
 	}
@@ -94,18 +94,30 @@ app.controller('PhotoEditorController', ['$scope', 'shutterstock', function ($sc
 			img.src = src;
 
 			img.onload = function(){
-				var scale = height / imageObj.height;
-				width = imageObj.width * scale;
-
 				canvas.width = width;
 				canvas.height = height;
 
-				imageObj.width = width;
-				imageObj.height = height;
+				if(imageObj.width > imageObj.height){
+					var scale = height / imageObj.height;
+
+					imageObj.width = imageObj.width * scale;;
+					imageObj.height = height;
+				}
+				else
+				{
+					var scale = width / imageObj.width;
+
+					imageObj.width = width;
+					imageObj.height = imageObj.height * scale;
+				}
+
+				console.log(imageObj);
 
 				var context = canvas.getContext("2d");
 
-				context.drawImage(img, 0, 0, width, height);
+				context.drawImage(img, (-1*(imageObj.width - width))/2, (-1*(imageObj.height - height))/2, imageObj.width, imageObj.height);
+
+				console.log((-1*(imageObj.width - width))/2, (-1*(imageObj.height - height))/2);
 				
 				context.drawImage(wathermark, width - wathermark.width, height - wathermark.height, wathermark.width, wathermark.height);
 

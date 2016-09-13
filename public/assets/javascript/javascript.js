@@ -46156,18 +46156,30 @@ app.controller('PhotoEditorController', ['$scope', 'unsplash', function ($scope,
 			img.src = src;
 
 			img.onload = function(){
-				var scale = height / imageObj.height;
-				width = imageObj.width * scale;
-
 				canvas.width = width;
 				canvas.height = height;
 
-				imageObj.width = width;
-				imageObj.height = height;
+				if(imageObj.width > imageObj.height){
+					var scale = height / imageObj.height;
+
+					imageObj.width = imageObj.width * scale;;
+					imageObj.height = height;
+				}
+				else
+				{
+					var scale = width / imageObj.width;
+
+					imageObj.width = width;
+					imageObj.height = imageObj.height * scale;
+				}
+
+				console.log(imageObj);
 
 				var context = canvas.getContext("2d");
 
-				context.drawImage(img, 0, 0, width, height);
+				context.drawImage(img, (-1*(imageObj.width - width))/2, (-1*(imageObj.height - height))/2, imageObj.width, imageObj.height);
+
+				console.log((-1*(imageObj.width - width))/2, (-1*(imageObj.height - height))/2);
 				
 				context.drawImage(wathermark, width - wathermark.width, height - wathermark.height, wathermark.width, wathermark.height);
 
