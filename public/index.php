@@ -45,6 +45,10 @@
 							<label for="settings.radius">Blur radius</label>
 							<slider ng-model="settings.radius" name="settings.radius" ng-change="rerender()" min="0" step="1" max="180"></slider>
 						</div>
+						<div class="form-group">
+							<label for="settings.darken">Darken</label>
+							<slider ng-model="settings.darken" name="settings.darken" ng-change="rerender()" min="0" step="0.01" max="1"></slider>
+						</div>
 					</div>
 				</div>
 				<div class="col-md-4">

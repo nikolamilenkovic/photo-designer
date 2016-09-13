@@ -46,15 +46,15 @@ app.controller('PhotoEditorController', ['$scope', 'unsplash', function ($scope,
 	$scope.settings.fontSize = "40";
 	$scope.settings.textWidth = 0.7;
 	$scope.settings.font = "Times New Roman";
-	$scope.settings.textVerticalPosition = 0;
+	$scope.settings.textVerticalPosition = -90;
 	$scope.settings.radius = 0;
+	$scope.settings.darken = 0.5;
 
 	$scope.output = {};
 	$scope.output.image = "";
 
 	$scope.instagram.search = function(){
 		unsplash.fetchHashtag($scope.instagram.query, function(data){
-			console.log(data);
 			$scope.instagram.selected = -1;
 			$scope.instagram.pics = data;
 		});
@@ -111,14 +111,13 @@ app.controller('PhotoEditorController', ['$scope', 'unsplash', function ($scope,
 					imageObj.height = imageObj.height * scale;
 				}
 
-				console.log(imageObj);
-
 				var context = canvas.getContext("2d");
 
 				context.drawImage(img, (-1*(imageObj.width - width))/2, (-1*(imageObj.height - height))/2, imageObj.width, imageObj.height);
 
-				console.log((-1*(imageObj.width - width))/2, (-1*(imageObj.height - height))/2);
-				
+				context.fillStyle = "rgba(0, 0, 0, "+$scope.settings.darken+")";
+				context.fillRect(0, 0, width, height);
+
 				context.drawImage(wathermark, width - wathermark.width, height - wathermark.height, wathermark.width, wathermark.height);
 
 				context.font = fontSizePt+"pt "+$scope.settings.font;
@@ -155,14 +154,21 @@ app.controller('PhotoEditorController', ['$scope', 'unsplash', function ($scope,
 			if (width < maxWidth) {
 				currentLine += " " + word;
 			} else {
-				lines.push(currentLine);
+				currentLine = currentLine.split("\n");
+
+				lines = lines.concat(currentLine);
+
 				currentLine = word;
 			}
 		}
 
 		if(currentLine != ""){
-			lines.push(currentLine);
+			currentLine = currentLine.split("\n");
+
+			lines = lines.concat(currentLine);
 		}
+
+		lines = lines.filter(function(line){return line != " ";});
 
 		return lines;
 	}
