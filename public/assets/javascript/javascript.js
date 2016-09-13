@@ -46184,7 +46184,18 @@ app.controller('PhotoEditorController', ['$scope', 'unsplash', function ($scope,
 
 				context.font = fontSizePt+"pt "+$scope.settings.font;
 
-				var lines = $scope.getLines(context, $scope.settings.text, width*$scope.settings.textWidth);
+				var lines = $scope.settings.text.split("\n");
+				lines = lines.map(function(line){
+					return $scope.getLines(context, line, width*$scope.settings.textWidth);
+				});
+
+				var newLines = [];
+
+				lines.forEach(function(line){
+					newLines = newLines.concat(line);
+				});
+
+				lines = newLines;
 
 				var top = (height - lines.length * fontSizePx) / 2;
 
@@ -46216,21 +46227,15 @@ app.controller('PhotoEditorController', ['$scope', 'unsplash', function ($scope,
 			if (width < maxWidth) {
 				currentLine += " " + word;
 			} else {
-				currentLine = currentLine.split("\n");
-
-				lines = lines.concat(currentLine);
+				lines.push(currentLine);
 
 				currentLine = word;
 			}
 		}
 
 		if(currentLine != ""){
-			currentLine = currentLine.split("\n");
-
-			lines = lines.concat(currentLine);
+			lines.push(currentLine);
 		}
-
-		lines = lines.filter(function(line){return line != " ";});
 
 		return lines;
 	}
