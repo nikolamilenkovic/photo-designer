@@ -46106,11 +46106,11 @@ app.controller('PhotoEditorController', ['$scope', 'unsplash', function ($scope,
 	$scope.settings.textColor = "#ffffff";
 	$scope.settings.shadowColor = "#000000";
 	$scope.settings.fontSize = "40";
-	$scope.settings.textWidth = 0.7;
-	$scope.settings.font = "Roboto-Light";
+	$scope.settings.textWidth = 0.9;
+	$scope.settings.font = "Roboto";
 	$scope.settings.textVerticalPosition = -90;
 	$scope.settings.radius = 0;
-	$scope.settings.darken = 0.9;
+	$scope.settings.darken = 0.5;
 
 	$scope.output = {};
 	$scope.output.image = "";
