@@ -8,7 +8,7 @@
 		<title>Photo designer</title>
 
 		<link rel="stylesheet" type="text/css" href="./assets/stylesheets/stylesheet.css">
-		<link rel="stylesheet" type="text/css" href="./fonts/styles.css">
+		<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 	</head>
 	<body>
 		<div class="container" ng-app="PhotoDesigner" ng-controller="PhotoEditorController">
