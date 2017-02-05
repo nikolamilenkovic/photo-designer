@@ -46096,7 +46096,7 @@ app.controller('PhotoEditorController', ['$scope', 'unsplash', function ($scope,
 	
 	$scope.instagram = {};
 	$scope.instagram.pics = [];
-	$scope.instagram.query = "texture";
+	$scope.instagram.query = "sky";
 	$scope.instagram.selected = -1;
 
 	$scope.url = "";
@@ -46108,7 +46108,7 @@ app.controller('PhotoEditorController', ['$scope', 'unsplash', function ($scope,
 	$scope.settings.fontSize = "40";
 	$scope.settings.textWidth = 0.9;
 	$scope.settings.font = "Roboto";
-	$scope.settings.textVerticalPosition = -90;
+	$scope.settings.textVerticalPosition = 0;
 	$scope.settings.radius = 45;
 	$scope.settings.darken = 0.5;
 
@@ -46202,8 +46202,8 @@ app.controller('PhotoEditorController', ['$scope', 'unsplash', function ($scope,
 				for(i = 0; i < lines.length; i++){
 					var textWidth = context.measureText(lines[i]).width;
 
-					context.fillStyle = $scope.settings.shadowColor;
-					context.fillText(lines[i], (width - textWidth) / 2 + 1, top + fontSizePx * (i + 1) + 1 + $scope.settings.textVerticalPosition);
+					//context.fillStyle = $scope.settings.shadowColor;
+					//context.fillText(lines[i], (width - textWidth) / 2 + 1, top + fontSizePx * (i + 1) + 1 + $scope.settings.textVerticalPosition);
 
 					context.fillStyle = $scope.settings.textColor;
 					context.fillText(lines[i], (width - textWidth) / 2, top + fontSizePx * (i + 1) + $scope.settings.textVerticalPosition);
