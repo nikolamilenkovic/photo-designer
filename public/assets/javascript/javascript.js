@@ -46109,7 +46109,7 @@ app.controller('PhotoEditorController', ['$scope', 'unsplash', function ($scope,
 	$scope.settings.textWidth = 0.9;
 	$scope.settings.font = "Roboto";
 	$scope.settings.textVerticalPosition = -90;
-	$scope.settings.radius = 0;
+	$scope.settings.radius = 45;
 	$scope.settings.darken = 0.5;
 
 	$scope.output = {};
