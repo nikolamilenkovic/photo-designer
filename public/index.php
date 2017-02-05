@@ -8,6 +8,7 @@
 		<title>Photo designer</title>
 
 		<link rel="stylesheet" type="text/css" href="./assets/stylesheets/stylesheet.css">
+		<link rel="stylesheet" type="text/css" href="./fonts/styles.css">
 	</head>
 	<body>
 		<div class="container" ng-app="PhotoDesigner" ng-controller="PhotoEditorController">
