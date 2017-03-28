@@ -1,4 +1,4 @@
-# photo-designer
+# quote-designer
 
-Demo: [photo-designer](https://photo-designer.nemanja.top)
+Demo: [quote-designer](https://quote-designer.visasvest.com)
 
