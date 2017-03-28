@@ -3,65 +3,59 @@
 @import (less) '../../bower_components/seiyria-bootstrap-slider/dist/css/bootstrap-slider.css';
 
 @media only screen and (min-width : 992px) {
-	.instagram-picker {
-		overflow-y: scroll;
-		height: 95vh;
-	}
 }
 
 h1 {
-	margin-top:0px;
+    margin-top:0px;
 }
 
 body {
-	padding-top: 10px;
-	font-family: 'Roboto', sans-serif;
-	font-weight: 200 !important;
-}
-
-.panel {
-	padding: 10px;
+    padding-top: 10px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300 !important;
 }
 
 .search {
-	padding-bottom:10px;
+    padding-bottom:10px;
 }
 
 #imageOut {
-	margin-top: 10px;
+    margin-top: 10px;
 }
 
 
-ul.thumbnails.image_picker_selector {
-  overflow: auto;
-  list-style-image: none;
-  list-style-position: outside;
-  list-style-type: none;
-  padding: 0px;
-  margin: 0px;
-}
-  ul.thumbnails.image_picker_selector ul {
-    overflow: auto;
+ul.thumbnails.image-picker-selector {
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
     list-style-image: none;
     list-style-position: outside;
     list-style-type: none;
     padding: 0px;
     margin: 0px;
+    height: 185px;
+    width: 100%;
 }
-  ul.thumbnails.image_picker_selector li.group_title {
-    float: none; }
-  ul.thumbnails.image_picker_selector li {
+ul.thumbnails.image-picker-selector li.group_title {
+    float: none; 
+}
+ul.thumbnails.image-picker-selector li {
+    display: inline-block;
     margin: 0px 12px 12px 0px;
-    float: left; }
-    ul.thumbnails.image_picker_selector li .thumbnail {
-      padding: 6px;
-      border: 1px solid #dddddd;
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none; }
-      ul.thumbnails.image_picker_selector li .thumbnail img {
-        -webkit-user-drag: none; }
-    ul.thumbnails.image_picker_selector li .thumbnail.selected {
-      background: #0088cc; }
-
-
+    max-height: 100%;
+}
+ul.thumbnails.image-picker-selector li .thumbnail {
+    padding: 6px;
+    border: 1px solid #dddddd;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+ul.thumbnails.image-picker-selector li .thumbnail img {
+    height: 150px !important;
+    width: auto !important;
+    -webkit-user-drag: none;
+}
+ul.thumbnails.image-picker-selector li .thumbnail.selected {
+    background: #0088cc;
+}

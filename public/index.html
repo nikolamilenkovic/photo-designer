@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Photo designer</title>
+
+        <link rel="stylesheet" type="text/css" href="./assets/stylesheets/stylesheet.css">
+        <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i,900,900i&amp;subset=cyrillic,cyrillic-ext,greek-ext,latin-ext" rel="stylesheet">    </head>
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i&amp;subset=cyrillic,cyrillic-ext,greek-ext,latin-ext" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700,700i,900,900i&amp;subset=latin-ext" rel="stylesheet">
+
+    <body>
+        <div class="container" data-ng-app="PhotoDesigner" data-ng-controller="PhotoEditorController">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h3>Step 1 - Pick background</h3>
+
+                    <div class="input-group search">
+                        <input ng-model="instagram.query" type="text" class="form-control" my-enter="instagram.search()" placeholder="Search for...">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" ng-click="instagram.search()" type="button">Go!</button>
+                        </span>
+                    </div>
+                    <div class="input-group search">
+                        <input placeholder="URL..." ng-model="url" ng-model-options="{ updateOn: 'blur' }" name="url" ng-change="rerender()" type="text" class="form-control">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" ng-click="rerender()" type="button">Go!</button>
+                        </span>
+                    </div>
+
+                    <ul class="thumbnails image-picker-selector">
+                        <li data-ng-repeat="(id, p) in instagram.pics" data-ng-click="instagram.select(id)">
+                            <div class="thumbnail" ng-class="{selected: instagram.isSelected(id)}">
+                                <img data-ng-src="{{'https://cors.nemanja.top/' + p[0]}}"/>
+                            </div>
+                        </li>
+                    </ul>
+                    <hr>
+                </div>
+
+                <div class="col-xs-12 settings">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6 col-md-4"> <!-- SETTINGS -->
+                            <h3>Step 2 - Settings</h3>
+                            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                                <div class="panel panel-default"> <!-- TEXT 1 SETTINGS -->
+                                    <div class="panel-heading" role="tab" id="headingOne">
+                                        <h4 class="panel-title">
+                                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                                Text 1
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                        <div class="panel-body">
+                                            <div class="form-group">
+                                                <label for="comment">Text 1</label>
+                                                <textarea data-ng-model-options="{ updateOn: 'blur' }"
+                                                        data-ng-change="rerender()"
+                                                        ng-model="settings.text1"
+                                                        id="comment"
+                                                        rows="3" 
+                                                        class="form-control">
+                                                </textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="text1Font">Font</label>
+                                                <select data-ng-model="settings.text1Font" data-ng-change="rerender()" id="text1Font" class="form-control">
+                                                    <option data-ng-repeat="font in fonts" value="{{font}}">{{font}}</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="text1FontWeight">Font weight</label>
+                                                <select data-ng-model="settings.text1FontWeight" data-ng-change="rerender()" id="text1FontWeight" class="form-control">
+                                                    <option data-ng-repeat="weight in fontWeights" value="{{weight}}">{{weight}}</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="text1Color">Text color</label>
+                                                <input data-colorpicker data-ng-model="settings.text1Color" data-ng-change="rerender()" id="text1Color" type="text" class="form-control">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="text1Size">Font size</label>
+                                                <slider data-ng-model="settings.text1FontSize" data-ng-change="rerender()" data-min="1" data-step="1" data-max="100"></slider>
+                                                <input data-ng-model="settings.text1FontSize" data-ng-change="rerender()" data-ng-model-options="{ updateOn: 'blur' }" id="text1Size" type="text" class="form-control">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="text1Width">Text width</label>
+                                                <slider data-ng-model="settings.text1Width" data-ng-change="rerender()" data-min="0.1" data-step="0.1" data-max="1.0" id="text1Width"></slider>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="text1VerticalPosition">Text vertical position</label>
+                                                <slider data-ng-model="settings.text1VerticalPosition" data-ng-change="rerender()" data-min="-340" data-step="1" data-max="340" id="text1VerticalPosition"></slider>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> <!-- END OF TEXT 1 SETTINGS -->
+                                
+                                <div class="panel panel-default"> <!-- TEXT 2 SETTINGS -->
+                                    <div class="panel-heading" role="tab" id="headingTwo">
+                                        <h4 class="panel-title">
+                                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                                Text 2
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                                        <div class="panel-body">
+                                            <div class="form-group">
+                                                <label for="comment">Text 1</label>
+                                                <textarea data-ng-model-options="{ updateOn: 'blur' }"
+                                                        data-ng-change="rerender()"
+                                                        ng-model="settings.text2"
+                                                        id="comment"
+                                                        rows="3" 
+                                                        class="form-control">
+                                                </textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="text2Font">Font</label>
+                                                <select data-ng-model="settings.text2Font" data-ng-change="rerender()" id="text2Font" class="form-control">
+                                                    <option data-ng-repeat="font in fonts" value="{{font}}">{{font}}</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="text2FontWeight">Font weight</label>
+                                                <select data-ng-model="settings.text2FontWeight" data-ng-change="rerender()" id="text2FontWeight" class="form-control">
+                                                    <option data-ng-repeat="weight in fontWeights" value="{{weight}}">{{weight}}</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="text2Color">Text color</label>
+                                                <input data-colorpicker data-ng-model="settings.text2Color" data-ng-change="rerender()" id="text2Color" type="text" class="form-control">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="text2Size">Font size</label>
+                                                <slider data-ng-model="settings.text2FontSize" data-ng-change="rerender()" data-min="1" data-step="1" data-max="100"></slider>
+                                                <input data-ng-model="settings.text2FontSize" data-ng-change="rerender()" data-ng-model-options="{ updateOn: 'blur' }" id="text2Size" type="text" class="form-control">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="text2Width">Text width</label>
+                                                <slider data-ng-model="settings.text2Width" data-ng-change="rerender()" data-min="0.1" data-step="0.1" data-max="1.0" id="text2Width"></slider>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="text2VerticalPosition">Text vertical position</label>
+                                                <slider data-ng-model="settings.text2VerticalPosition" data-ng-change="rerender()" data-min="-340" data-step="1" data-max="340" id="text2VerticalPosition"></slider>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> <!-- END OF TEXT 2 SETTINGS -->
+
+                                <div class="panel panel-default"> <!-- WATERMARK and BORDER SETTINGS -->
+                                    <div class="panel-heading" role="tab" id="headingThree">
+                                        <h4 class="panel-title">
+                                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                                Watermark and border
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                                        <div class="panel-body">
+                                            <div class="form-group">
+                                                <input data-ng-model="settings.watermarkShow" data-ng-change="rerender()" type="checkbox" value="" id="includeWatermark">
+                                                <label for="includeWatermark"> Include watermark</label>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="watermarkScale">Watermark scale</label>
+                                                <slider data-ng-model="settings.watermarkScale" data-ng-change="rerender()" data-min="0.0" data-step="0.01" data-max="1.0" id="watermarkScale"></slider>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="watermarkVerticalPosition">Watermark vertical position</label>
+                                                <slider data-ng-model="settings.watermarkVerticalPosition" data-ng-change="rerender()" data-min="0.0" data-step="0.01" data-max="1.0" id="watermarkVerticalPosition"></slider>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <input data-ng-model="settings.borderShow" data-ng-change="rerender()" type="checkbox" value="" id="borderShow">
+                                                <label for="borderShow"> Include border</label>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="borderWidth">Border width</label>
+                                                <slider data-ng-model="settings.borderWidth" data-ng-change="rerender()" data-min="0" data-step="1" data-max="200" id="borderWidth"></slider>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="borderOpacity">Border opacity</label>
+                                                <slider data-ng-model="settings.borderOpacity" data-ng-change="rerender()" data-min="0.0" data-step="0.01" data-max="1.0" id="borderOpacity"></slider>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> <!-- END OF WATERMARK and BORDER SETTINGS -->
+
+                                <div class="panel panel-default"> <!-- GENERAL SETTINGS -->
+                                    <div class="panel-heading" role="tab" id="headingThree">
+                                        <h4 class="panel-title">
+                                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseGeneral" aria-expanded="false" aria-controls="collapseGeneral">
+                                                General
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseGeneral" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                                        <div class="panel-body">
+                                            <div class="form-group">
+                                                <label for="blurRadius">Blur radius</label>
+                                                <slider data-ng-model="settings.radius" data-ng-change="rerender()" data-min="0" data-step="1" data-max="180" id="blurRadius"></slider>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="darken">Darken</label>
+                                                <slider data-ng-model="settings.darken" data-ng-change="rerender()" data-min="0" data-step="0.01" data-max="1" id="darken"></slider>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="width">Image width</label>
+                                                <input data-ng-model="settings.width" data-ng-change="rerender()" data-ng-model-options="{ updateOn: 'blur' }" id="width" type="text" class="form-control">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="height">Image height</label>
+                                                <input data-ng-model="settings.height" data-ng-change="rerender()" data-ng-model-options="{ updateOn: 'blur' }" id="height" type="text" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> <!-- END OF GENERAL SETTINGS -->
+                        </div> <!-- END OF SETTINGS -->
+
+                        <div class="col-xs-12 col-sm-6 col-md-8"> <!-- RESULT -->
+                            <h3>Step 3 - Result</h3>
+
+                            <canvas id="image" style="display: none"></canvas>
+                            <img id="imageOut" data-ng-src="{{'https://placehold.it/' + settings.width + 'x' + settings.height}}" style="width: 100%" class="thumbnail" />
+                        </div> <!-- END OF RESULT -->
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <script src="./assets/javascript/javascript.js"></script> 
+    </body>
+</html>
