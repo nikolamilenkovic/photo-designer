@@ -46,6 +46,7 @@ app.controller('PhotoEditorController', ['$scope', 'unsplash', function ($scope,
         text1Font: 'Roboto',
         text1FontWeight: 'normal',
         text1VerticalPosition: 0,
+        text1Align: 'center',
         
         text2: 'Nikola Milenković',
         text2Color: '#ffffff',
@@ -54,7 +55,8 @@ app.controller('PhotoEditorController', ['$scope', 'unsplash', function ($scope,
         text2Font: 'Roboto',
         text2FontWeight: 'normal',
         text2VerticalPosition: 100,
-        
+        text2Align: 'center',
+
         radius: 3,
         darken: 0.5,
         width: 1080,
@@ -122,10 +124,26 @@ app.controller('PhotoEditorController', ['$scope', 'unsplash', function ($scope,
                     $scope.renderWatermark(context);
                 }
                 if ($scope.settings.text1 !== '') {
-                    $scope.renderText(context, $scope.settings.text1, $scope.settings.text1Color, $scope.settings.text1FontSize, $scope.settings.text1Width, $scope.settings.text1Font, $scope.settings.text1FontWeight, $scope.settings.text1VerticalPosition);
+                    $scope.renderText(context,
+                                      $scope.settings.text1,
+                                      $scope.settings.text1Color,
+                                      $scope.settings.text1FontSize,
+                                      $scope.settings.text1Width,
+                                      $scope.settings.text1Font,
+                                      $scope.settings.text1FontWeight,
+                                      $scope.settings.text1VerticalPosition,
+                                      $scope.settings.text1Align);
                 }
                 if ($scope.settings.text2 !== '') {
-                    $scope.renderText(context, $scope.settings.text2, $scope.settings.text2Color, $scope.settings.text2FontSize, $scope.settings.text2Width, $scope.settings.text2Font, $scope.settings.text2FontWeight, $scope.settings.text2VerticalPosition);
+                    $scope.renderText(context,
+                                      $scope.settings.text2,
+                                      $scope.settings.text2Color,
+                                      $scope.settings.text2FontSize,
+                                      $scope.settings.text2Width,
+                                      $scope.settings.text2Font,
+                                      $scope.settings.text2FontWeight,
+                                      $scope.settings.text2VerticalPosition,
+                                      $scope.settings.text2Align);
                 }
 
                 document.getElementById('imageOut').src = canvas.toDataURL('image/png');
@@ -134,7 +152,7 @@ app.controller('PhotoEditorController', ['$scope', 'unsplash', function ($scope,
         imageObj.src = 'https://cors.nemanja.top/' + $scope.url; 
     };
 
-    $scope.renderText = function(ctx, text, color, fontSize, textWidth, font, fontWeight, verticalPosition) {
+    $scope.renderText = function(ctx, text, color, fontSize, textWidth, font, fontWeight, verticalPosition, align) {
         console.log(text, color, fontSize, textWidth, font, fontWeight, verticalPosition);
         var fontSizePx = 4 / 3 * fontSize;
         ctx.font = fontWeight + ' ' + fontSize + 'pt "' + font + '"';
@@ -152,9 +170,15 @@ app.controller('PhotoEditorController', ['$scope', 'unsplash', function ($scope,
 
         var top = ($scope.settings.height - lines.length * fontSizePx) / 2;
         for (i = 0; i < lines.length; i++) {
-            var textWidth = ctx.measureText(lines[i]).width;
+            var lineWidth = ctx.measureText(lines[i]).width;
             ctx.fillStyle = color;
-            ctx.fillText(lines[i], ($scope.settings.width - textWidth) / 2, top + fontSizePx * (i + 1) + verticalPosition);
+            var left = ($scope.settings.width - lineWidth) / 2; // center
+            if (align === 'left') {
+                left = ($scope.settings.width - $scope.settings.width * textWidth) / 2;
+            } else if (align === 'right') {
+                left = $scope.settings.width - (($scope.settings.width - $scope.settings.width * textWidth)/2) - lineWidth;
+            }
+            ctx.fillText(lines[i], left, top + fontSizePx * (i + 1) + verticalPosition);
         }
     };
 

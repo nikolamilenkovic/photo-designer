@@ -1,14 +1,15 @@
 {
-  "name": "open-pua",
-  "version": "0.0.0",
-  "description": "Just some crazy realtime stuff",
-  "author": "nemanjan00 <nemanjan00@gmail.com>",
+  "name": "quote-designer",
+  "version": "1.0.0",
+  "description": "Page for quick quotes designing",
+  "author": "Nikola Milenković <electroNik87@gmail.com>",
   "license": "MIT",
   "devDependencies": {
-	"grunt": "*",
-	"grunt-contrib-concat": "*",
-	"grunt-contrib-less": "*",
-	"grunt-contrib-uglify": "*",
-	"grunt-contrib-watch": "*"
+  "grunt": "*",
+  "grunt-contrib-concat": "*",
+  "grunt-contrib-less": "*",
+  "grunt-contrib-uglify": "*",
+  "grunt-contrib-watch": "*",
+  "grunt-contrib-copy": "*"
   }
 }

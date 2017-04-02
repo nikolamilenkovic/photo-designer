@@ -14,6 +14,7 @@
     "angular": "~1.5.0",
     "angular-bootstrap-slider": "seiyria/angular-bootstrap-slider#~0.1.26",
     "seiyria-bootstrap-slider": "seiyria/bootstrap-slider#~6.0.17",
-    "stackblur-canvas": "~1.2.0"
+    "stackblur-canvas": "~1.2.0",
+    "font-awesome": "^4.7.0"
   }
 }
