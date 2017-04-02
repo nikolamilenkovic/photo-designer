@@ -48306,6 +48306,7 @@ app.controller('PhotoEditorController', ['$scope', 'unsplash', function ($scope,
         watermarkScale: 0.5,
         watermarkVerticalPosition: 0.96, // [0,1]
         borderShow: true,
+        borderColor: '#ffffff',
         borderOpacity: 0.4,
         borderWidth: 25
     };
@@ -48394,7 +48395,6 @@ app.controller('PhotoEditorController', ['$scope', 'unsplash', function ($scope,
     };
 
     $scope.renderText = function(ctx, text, color, fontSize, textWidth, font, fontWeight, verticalPosition, align) {
-        console.log(text, color, fontSize, textWidth, font, fontWeight, verticalPosition);
         var fontSizePx = 4 / 3 * fontSize;
         ctx.font = fontWeight + ' ' + fontSize + 'pt "' + font + '"';
         var lines = text.split('\n');
@@ -48453,8 +48453,9 @@ app.controller('PhotoEditorController', ['$scope', 'unsplash', function ($scope,
         return lines;
     };
 
-    $scope.renderBorder = function (ctx) {
-        ctx.strokeStyle = 'rgba(0, 0, 0, ' + $scope.settings.borderOpacity + ')';
+    $scope.renderBorder = function(ctx) {
+        var rgb = $scope.hex2Rgb($scope.settings.borderColor);
+        ctx.strokeStyle = 'rgba(' + rgb.r + ', ' + rgb.g + ', ' + rgb.b + ', ' + $scope.settings.borderOpacity + ')';
         var bw = $scope.settings.borderWidth;
         ctx.lineWidth = bw;
         ctx.strokeRect(bw/2, bw/2, $scope.settings.width - bw, $scope.settings.height - bw);
@@ -48462,6 +48463,21 @@ app.controller('PhotoEditorController', ['$scope', 'unsplash', function ($scope,
 
     $scope.instagram.isSelected = function(id){
         return $scope.instagram.selected == id;
+    };
+
+    $scope.hex2Rgb = function(hex) {
+        // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
+        var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+        hex = hex.replace(shorthandRegex, function(m, r, g, b) {
+            return r + r + g + g + b + b;
+        });
+
+        var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+        return result ? {
+            r: parseInt(result[1], 16),
+            g: parseInt(result[2], 16),
+            b: parseInt(result[3], 16)
+        } : null;
     };
 
     $scope.instagram.search();
