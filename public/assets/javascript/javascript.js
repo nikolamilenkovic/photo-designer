@@ -48298,7 +48298,7 @@ app.controller('PhotoEditorController', ['$scope', 'unsplash', function ($scope,
         text2VerticalPosition: 100,
         text2Align: 'center',
 
-        radius: 3,
+        radius: 0,
         darken: 0.5,
         width: 1080,
         height: 1080,
