@@ -39,6 +39,7 @@ app.controller('PhotoEditorController', ['$scope', 'unsplash', function ($scope,
     $scope.url = '';
 
     $scope.settings = {
+        text1Show: true,
         text1: 'Uvek nosi knjigu sa sobom i više nikada ništa nećeš morati da čekaš!',
         text1Color: '#ffffff',
         text1FontSize: '40',
@@ -48,6 +49,7 @@ app.controller('PhotoEditorController', ['$scope', 'unsplash', function ($scope,
         text1VerticalPosition: 0,
         text1Align: 'center',
         
+        text2Show: true,
         text2: 'Nikola Milenković',
         text2Color: '#ffffff',
         text2FontSize: '30',
@@ -64,6 +66,7 @@ app.controller('PhotoEditorController', ['$scope', 'unsplash', function ($scope,
         watermarkShow: true,
         watermarkScale: 0.5,
         watermarkVerticalPosition: 0.96, // [0,1]
+        watermarkOpacity: 1.0,
         borderShow: true,
         borderColor: '#ffffff',
         borderOpacity: 0.4,
@@ -119,12 +122,14 @@ app.controller('PhotoEditorController', ['$scope', 'unsplash', function ($scope,
                 context.fillStyle = 'rgba(0, 0, 0, ' + $scope.settings.darken + ')';
                 context.fillRect(0, 0, $scope.settings.width, $scope.settings.height);
                 
-                $scope.renderBorder(context);
+                if ($scope.settings.borderShow) {
+                    $scope.renderBorder(context);
+                }
 
                 if ($scope.settings.watermarkShow) {
                     $scope.renderWatermark(context);
                 }
-                if ($scope.settings.text1 !== '') {
+                if ($scope.settings.text1Show && $scope.settings.text1 !== '') {
                     $scope.renderText(context,
                                       $scope.settings.text1,
                                       $scope.settings.text1Color,
@@ -135,7 +140,7 @@ app.controller('PhotoEditorController', ['$scope', 'unsplash', function ($scope,
                                       $scope.settings.text1VerticalPosition,
                                       $scope.settings.text1Align);
                 }
-                if ($scope.settings.text2 !== '') {
+                if ($scope.settings.text2Show && $scope.settings.text2 !== '') {
                     $scope.renderText(context,
                                       $scope.settings.text2,
                                       $scope.settings.text2Color,
@@ -185,7 +190,10 @@ app.controller('PhotoEditorController', ['$scope', 'unsplash', function ($scope,
     $scope.renderWatermark = function(ctx) {
         var w = watermark.width * $scope.settings.watermarkScale;
         var h = watermark.height * $scope.settings.watermarkScale;
+        var previousAlpha = ctx.globalAlpha;
+        ctx.globalAlpha = $scope.settings.watermarkOpacity;
         ctx.drawImage(watermark, ($scope.settings.width - w)/2, ($scope.settings.height - h) * $scope.settings.watermarkVerticalPosition, w, h);
+        ctx.globalAlpha = previousAlpha;
     };
 
     $scope.getLines = function(ctx, text, maxWidth) {

@@ -20,21 +20,45 @@
         <link href="https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700,700i,900,900i&amp;subset=latin-ext" rel="stylesheet">
 
     <body>
+        <nav class="navbar navbar-default">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand brand-logo" href="/">
+                        <img alt="Brand" style="height: 45px; width: auto;" src="/assets/images/visasvest-logo-small.png">
+                    </a>
+                    <a class="navbar-brand" href="/">
+                        Dizajner citata
+                    </a>
+                </div>
+                <div id="navbar" class="collapse navbar-collapse pull-right nav-powered-by">
+                    <ul class="nav navbar-nav">
+                        <li><a href="http://www.visasvest.com" target="_blank">Powered by: Viša Svest</a></li>
+                    </ul>
+                </div><!--/.nav-collapse -->
+            </div>
+        </nav>
+
         <div class="container" data-ng-app="PhotoDesigner" data-ng-controller="PhotoEditorController">
             <div class="row">
                 <div class="col-xs-12">
-                    <h3>Step 1 - Pick background</h3>
+                    <h3>Korak 1 - Pronađi i odaberi pozadinu</h3>
 
                     <div class="input-group search">
-                        <input ng-model="instagram.query" type="text" class="form-control" my-enter="instagram.search()" placeholder="Search for...">
+                        <input ng-model="instagram.query" type="text" class="form-control" my-enter="instagram.search()" placeholder="Traži...">
                         <span class="input-group-btn">
-                            <button class="btn btn-default" ng-click="instagram.search()" type="button">Go!</button>
+                            <button class="btn btn-default" ng-click="instagram.search()" type="button">Pretraži!</button>
                         </span>
                     </div>
                     <div class="input-group search">
                         <input placeholder="URL..." ng-model="url" ng-model-options="{ updateOn: 'blur' }" name="url" ng-change="rerender()" type="text" class="form-control">
                         <span class="input-group-btn">
-                            <button class="btn btn-default" ng-click="rerender()" type="button">Go!</button>
+                            <button class="btn btn-default" ng-click="rerender()" type="button">Primeni!</button>
                         </span>
                     </div>
 
@@ -51,20 +75,21 @@
                 <div class="col-xs-12 settings">
                     <div class="row">
                         <div class="col-xs-12 col-sm-6 col-md-4"> <!-- SETTINGS -->
-                            <h3>Step 2 - Settings</h3>
+                            <h3>Korak 2 - Podešavanja</h3>
                             <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
                                 <div class="panel panel-default"> <!-- TEXT 1 SETTINGS -->
                                     <div class="panel-heading" role="tab" id="headingOne">
                                         <h4 class="panel-title">
+                                            <input type="checkbox" data-ng-model="settings.text1Show" data-ng-change="rerender()" title="Prikaži tekst #1" />
                                             <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                                Text 1
+                                                Tekst #1
                                             </a>
                                         </h4>
                                     </div>
                                     <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                                         <div class="panel-body">
                                             <div class="form-group">
-                                                <label for="comment">Text 1</label>
+                                                <label for="comment">Tekst</label>
                                                 <textarea data-ng-model-options="{ updateOn: 'blur' }"
                                                         data-ng-change="rerender()"
                                                         ng-model="settings.text1"
@@ -81,7 +106,7 @@
                                             </div>
                                             <div class="row">
                                                 <div class="col-xs-6 form-group">
-                                                    <label for="text1FontWeight">Text align</label>
+                                                    <label for="text1FontWeight">Poravnanje teksta</label>
                                                     <div class="btn-group">
                                                         <button type="button" data-ng-click="settings.text1Align = 'left'; rerender();" data-ng-class="{active: settings.text1Align === 'left'}" class="btn btn-default"><i class="fa fa-align-left"></i></button>
                                                         <button type="button" data-ng-click="settings.text1Align = 'center'; rerender();" data-ng-class="{active: settings.text1Align === 'center'}" class="btn btn-default"><i class="fa fa-align-center"></i></button>
@@ -89,27 +114,27 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-xs-6 form-group">
-                                                    <label for="text1FontWeight">Font weight</label>
+                                                    <label for="text1FontWeight">Debljina teksta</label>
                                                     <select data-ng-model="settings.text1FontWeight" data-ng-change="rerender()" id="text1FontWeight" class="form-control">
                                                         <option data-ng-repeat="weight in fontWeights" value="{{weight}}">{{weight}}</option>
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                    <label for="text1Color">Text color</label>
+                                                    <label for="text1Color">Boja teksta</label>
                                                     <input data-colorpicker data-ng-model="settings.text1Color" data-ng-change="rerender()" id="text1Color" type="text" class="form-control">
                                                 </div>
                                             <div class="form-group">
-                                                <label for="text1Size">Font size</label>
+                                                <label for="text1Size">Veličina fonta</label>
                                                 <slider data-ng-model="settings.text1FontSize" data-ng-change="rerender()" data-min="1" data-step="1" data-max="100"></slider>
                                                 <input data-ng-model="settings.text1FontSize" data-ng-change="rerender()" data-ng-model-options="{ updateOn: 'blur' }" id="text1Size" type="text" class="form-control">
                                             </div>
                                             <div class="form-group">
-                                                <label for="text1Width">Text width</label>
-                                                <slider data-ng-model="settings.text1Width" data-ng-change="rerender()" data-min="0.1" data-step="0.1" data-max="1.0" id="text1Width"></slider>
+                                                <label for="text1Width">Širina teksta</label>
+                                                <slider data-ng-model="settings.text1Width" data-ng-change="rerender()" data-min="0.1" data-step="0.01" data-max="1.0" id="text1Width"></slider>
                                             </div>
                                             <div class="form-group">
-                                                <label for="text1VerticalPosition">Text vertical position</label>
+                                                <label for="text1VerticalPosition">Vertikalna pozicija teksta</label>
                                                 <slider data-ng-model="settings.text1VerticalPosition" data-ng-change="rerender()" data-min="-500" data-step="1" data-max="500" id="text1VerticalPosition"></slider>
                                             </div>
                                         </div>
@@ -119,15 +144,16 @@
                                 <div class="panel panel-default"> <!-- TEXT 2 SETTINGS -->
                                     <div class="panel-heading" role="tab" id="headingTwo">
                                         <h4 class="panel-title">
+                                            <input type="checkbox" data-ng-model="settings.text2Show" data-ng-change="rerender()" title="Prikaži tekst #2" />
                                             <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                                Text 2
+                                                Tekst #2
                                             </a>
                                         </h4>
                                     </div>
                                     <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
                                         <div class="panel-body">
                                             <div class="form-group">
-                                                <label for="comment">Text 2</label>
+                                                <label for="comment">Tekst</label>
                                                 <textarea data-ng-model-options="{ updateOn: 'blur' }"
                                                         data-ng-change="rerender()"
                                                         ng-model="settings.text2"
@@ -144,7 +170,7 @@
                                             </div>
                                             <div class="row">
                                                 <div class="col-xs-6 form-group">
-                                                    <label>Text align</label>
+                                                    <label>Poravnanje teksta</label>
                                                     <div class="btn-group">
                                                         <button type="button" data-ng-click="settings.text2Align = 'left'; rerender();" data-ng-class="{active: settings.text2Align === 'left'}" class="btn btn-default"><i class="fa fa-align-left"></i></button>
                                                         <button type="button" data-ng-click="settings.text2Align = 'center'; rerender();" data-ng-class="{active: settings.text2Align === 'center'}" class="btn btn-default"><i class="fa fa-align-center"></i></button>
@@ -152,101 +178,114 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-xs-6 form-group">
-                                                    <label for="text2FontWeight">Font weight</label>
+                                                    <label for="text2FontWeight">Debljina teksta</label>
                                                     <select data-ng-model="settings.text2FontWeight" data-ng-change="rerender()" id="text2FontWeight" class="form-control">
                                                         <option data-ng-repeat="weight in fontWeights" value="{{weight}}">{{weight}}</option>
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label for="text2Color">Text color</label>
+                                                <label for="text2Color">Boja teksta</label>
                                                 <input data-colorpicker data-ng-model="settings.text2Color" data-ng-change="rerender()" id="text2Color" type="text" class="form-control">
                                             </div>
                                             <div class="form-group">
-                                                <label for="text2Size">Font size</label>
+                                                <label for="text2Size">Veličina fonta</label>
                                                 <slider data-ng-model="settings.text2FontSize" data-ng-change="rerender()" data-min="1" data-step="1" data-max="100"></slider>
                                                 <input data-ng-model="settings.text2FontSize" data-ng-change="rerender()" data-ng-model-options="{ updateOn: 'blur' }" id="text2Size" type="text" class="form-control">
                                             </div>
                                             <div class="form-group">
-                                                <label for="text2Width">Text width</label>
+                                                <label for="text2Width">Širina teksta</label>
                                                 <slider data-ng-model="settings.text2Width" data-ng-change="rerender()" data-min="0.1" data-step="0.1" data-max="1.0" id="text2Width"></slider>
                                             </div>
                                             <div class="form-group">
-                                                <label for="text2VerticalPosition">Text vertical position</label>
+                                                <label for="text2VerticalPosition">Vertikalna pozicija teksta</label>
                                                 <slider data-ng-model="settings.text2VerticalPosition" data-ng-change="rerender()" data-min="-500" data-step="1" data-max="500" id="text2VerticalPosition"></slider>
                                             </div>
                                         </div>
                                     </div>
                                 </div> <!-- END OF TEXT 2 SETTINGS -->
 
-                                <div class="panel panel-default"> <!-- WATERMARK and BORDER SETTINGS -->
+                                <div class="panel panel-default"> <!-- BORDER SETTINGS -->
                                     <div class="panel-heading" role="tab" id="headingThree">
                                         <h4 class="panel-title">
+                                            <input data-ng-model="settings.borderShow" data-ng-change="rerender()" type="checkbox" title="Prikaži okvir slike">
                                             <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                                Watermark and border
+                                                Okvir slike
                                             </a>
                                         </h4>
                                     </div>
                                     <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
                                         <div class="panel-body">
                                             <div class="form-group">
-                                                <input data-ng-model="settings.watermarkShow" data-ng-change="rerender()" type="checkbox" value="" id="includeWatermark">
-                                                <label for="includeWatermark"> Include watermark</label>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="watermarkScale">Watermark scale</label>
-                                                <slider data-ng-model="settings.watermarkScale" data-ng-change="rerender()" data-min="0.0" data-step="0.01" data-max="1.0" id="watermarkScale"></slider>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="watermarkVerticalPosition">Watermark vertical position</label>
-                                                <slider data-ng-model="settings.watermarkVerticalPosition" data-ng-change="rerender()" data-min="0.0" data-step="0.01" data-max="1.0" id="watermarkVerticalPosition"></slider>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <input data-ng-model="settings.borderShow" data-ng-change="rerender()" type="checkbox" value="" id="borderShow">
-                                                <label for="borderShow"> Include border</label>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="borderColor">Border color</label>
+                                                <label for="borderColor">Boja okvira</label>
                                                 <input data-colorpicker data-ng-model="settings.borderColor" data-ng-change="rerender()" id="borderColor" type="text" class="form-control">
                                             </div>
                                             <div class="form-group">
-                                                <label for="borderWidth">Border width</label>
+                                                <label for="borderWidth">Širina okvira (px)</label>
                                                 <slider data-ng-model="settings.borderWidth" data-ng-change="rerender()" data-min="0" data-step="1" data-max="200" id="borderWidth"></slider>
                                             </div>
                                             <div class="form-group">
-                                                <label for="borderOpacity">Border opacity</label>
+                                                <label for="borderOpacity">Transparentnost okvira</label>
                                                 <slider data-ng-model="settings.borderOpacity" data-ng-change="rerender()" data-min="0.0" data-step="0.01" data-max="1.0" id="borderOpacity"></slider>
                                             </div>
                                         </div>
                                     </div>
-                                </div> <!-- END OF WATERMARK and BORDER SETTINGS -->
+                                </div> <!-- BORDER SETTINGS -->
+
+                                <div class="panel panel-default"> <!-- WATERMARK SETTINGS -->
+                                    <div class="panel-heading" role="tab" id="headingWatermark">
+                                        <h4 class="panel-title">
+                                            <input data-ng-model="settings.watermarkShow" data-ng-change="rerender()" type="checkbox" title="Prikaži vodeni žig">
+                                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseWatermark" aria-expanded="false" aria-controls="collapseThree">
+                                                Vodeni žig
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseWatermark" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                                        <div class="panel-body">
+                                            <div class="form-group">
+                                                <label for="watermarkScale">Veličina vodenog žiga</label>
+                                                <slider data-ng-model="settings.watermarkScale" data-ng-change="rerender()" data-min="0.0" data-step="0.01" data-max="1.0" id="watermarkScale"></slider>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="watermarkVerticalPosition">Vertikalna pozicija vodenog žiga</label>
+                                                <slider data-ng-model="settings.watermarkVerticalPosition" data-ng-change="rerender()" data-min="0.0" data-step="0.01" data-max="1.0" id="watermarkVerticalPosition"></slider>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="watermarkOpacity">Transparentnost vodenog žiga</label>
+                                                <slider data-ng-model="settings.watermarkOpacity" data-ng-change="rerender()" data-min="0.0" data-step="0.01" data-max="1.0" id="watermarkOpacity"></slider>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> <!-- END OF WATERMARK SETTINGS -->
 
                                 <div class="panel panel-default"> <!-- GENERAL SETTINGS -->
                                     <div class="panel-heading" role="tab" id="headingThree">
                                         <h4 class="panel-title">
                                             <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseGeneral" aria-expanded="false" aria-controls="collapseGeneral">
-                                                General
+                                                Globalna podešavanja slike
                                             </a>
                                         </h4>
                                     </div>
                                     <div id="collapseGeneral" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
                                         <div class="panel-body">
                                             <div class="form-group">
-                                                <label for="blurRadius">Blur radius</label>
+                                                <label for="blurRadius">Zamućenost pozadine</label>
                                                 <slider data-ng-model="settings.radius" data-ng-change="rerender()" data-min="0" data-step="1" data-max="180" id="blurRadius"></slider>
                                             </div>
                                             <div class="form-group">
-                                                <label for="darken">Darken</label>
+                                                <label for="darken">Zatamljenost pozadine</label>
                                                 <slider data-ng-model="settings.darken" data-ng-change="rerender()" data-min="0" data-step="0.01" data-max="1" id="darken"></slider>
                                             </div>
-                                            <div class="form-group">
-                                                <label for="width">Image width</label>
-                                                <input data-ng-model="settings.width" data-ng-change="rerender()" data-ng-model-options="{ updateOn: 'blur' }" id="width" type="text" class="form-control">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="height">Image height</label>
-                                                <input data-ng-model="settings.height" data-ng-change="rerender()" data-ng-model-options="{ updateOn: 'blur' }" id="height" type="text" class="form-control">
+                                            <div class="row">
+                                                <div class="col-xs-6 form-group">
+                                                    <label for="width">Širina slike (px)</label>
+                                                    <input data-ng-model="settings.width" data-ng-change="rerender()" data-ng-model-options="{ updateOn: 'blur' }" id="width" type="text" class="form-control">
+                                                </div>
+                                                <div class="col-xs-6 form-group">
+                                                    <label for="height">Visina slike (px)</label>
+                                                    <input data-ng-model="settings.height" data-ng-change="rerender()" data-ng-model-options="{ updateOn: 'blur' }" id="height" type="text" class="form-control">
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -255,16 +294,33 @@
                         </div> <!-- END OF SETTINGS -->
 
                         <div class="col-xs-12 col-sm-6 col-md-8"> <!-- RESULT -->
-                            <h3>Step 3 - Result</h3>
+                            <h3>Korak 3 - Rezultat</h3>
 
                             <canvas id="image" style="display: none"></canvas>
-                            <img id="imageOut" data-ng-src="{{'https://placehold.it/' + settings.width + 'x' + settings.height}}" style="width: 100%" class="thumbnail" />
+                            <img id="imageOut" 
+                                 data-ng-src="{{'https://placehold.it/' + settings.width + 'x' + settings.height}}"
+                                 style="width: 100%"
+                                 class="thumbnail"
+                                 title="Desni taster na sliku da biste je sačuvali"/>
                         </div> <!-- END OF RESULT -->
                     </div>
                 </div>
 
             </div>
         </div>
+
+        <div class="navbar navbar-default">
+            <div class="container">
+                <p class="navbar-text pull-left">
+                    You are free to use generated images in any way you wish.
+                </p>
+
+                <p class="navbar-text pull-right">
+                    <a href="#" target="_blank">Get the source code on Github</a>
+                </p>
+            </div>
+        </div>
+
         <script src="./assets/javascript/javascript.js"></script> 
     </body>
 </html>
