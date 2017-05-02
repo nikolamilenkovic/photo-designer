@@ -38,7 +38,7 @@
                 </div>
                 <div id="navbar" class="collapse navbar-collapse pull-right nav-powered-by">
                     <ul class="nav navbar-nav">
-                        <li><a href="http://www.visasvest.com" target="_blank">Powered by: Viša Svest</a></li>
+                        <li><a href="http://www.visasvest.com/kontakt" target="_blank">Kontakt</a></li>
                     </ul>
                 </div><!--/.nav-collapse -->
             </div>
@@ -255,6 +255,10 @@
                                                 <label for="watermarkOpacity">Transparentnost vodenog žiga</label>
                                                 <slider data-ng-model="settings.watermarkOpacity" data-ng-change="rerender()" data-min="0.0" data-step="0.01" data-max="1.0" id="watermarkOpacity"></slider>
                                             </div>
+                                            <div class="form-group">
+                                                <label for="watermarkURL">URL vodenog žiga</label>
+                                                <input data-ng-model="settings.watermarkURL" id="watermarkURL" type="text" class="form-control">
+                                            </div>
                                         </div>
                                     </div>
                                 </div> <!-- END OF WATERMARK SETTINGS -->
@@ -309,15 +313,33 @@
             </div>
         </div>
 
-        <div class="navbar navbar-default">
+        <div class="navbar navbar-default footer">
             <div class="container">
-                <p class="navbar-text pull-left">
-                    You are free to use generated images in any way you wish.
-                </p>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <p class="text-center social-icons">
+                            <a href="https://www.facebook.com/visasvest" target="_blank"><i class="fa fa-facebook fa-2x"></i></a>
+                            <a href="https://www.instagram.com/svestvisa/" target="_blank"><i class="fa fa-instagram fa-2x"></i></a>
+                            <a href="https://www.twitter.com/visasvest" target="_blank"><i class="fa fa-twitter fa-2x"></i></a>
+                            <a href="https://plus.google.com/+visasvest" target="_blank"><i class="fa fa-google-plus fa-2x"></i></a>
+                            <a href="http://www.visasvest.com/blog" target="_blank"><i class="fa fa-rss fa-2x"></i></a>
+                        </p>
+                    </div>
 
-                <p class="navbar-text pull-right">
-                    <a href="#" target="_blank">Get the source code on Github</a>
-                </p>
+                    <div class="col-xs-12">
+                        <p class="text-center">
+                            Dizajner citata je kreiran sa ljubavlju i održava ga <a href="http://www.visasvest.com" target="_blank">Viša Svest regresoterapija (www.visasvest.com)</a>. <br />
+                            Izvorni kod stranice je licenciran pod MIT licencom i dostupan je na <a href="https://github.com/nikolamilenkovic/quote-designer" target="_blank">GitHub-u</a>. Hvala Nemanji na <a href="https://github.com/nemanjan00/photo-designer" target="_blank">originalnoj ideji</a>.
+                        </p>
+                    </div>
+                    <div class="col-xs-12">
+                        <p class="text-center">
+                            <a href="#" target="_blank">
+                                <img src="/assets/images/compact-logo.png" style="width: 200px; height: auto;" />
+                            </a>
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
 

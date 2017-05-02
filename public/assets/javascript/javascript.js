@@ -48265,10 +48265,9 @@ app.directive('myEnter', function () {
     };
 });
 
-app.controller('PhotoEditorController', ['$scope', 'unsplash', function ($scope, unsplash) {
-    var watermark = new Image();
-    watermark.src = './assets/images/watermark.png';
-    
+app.controller('PhotoEditorController', ['$scope', '$window', 'unsplash', function ($scope, $window, unsplash) {
+    var deCorsUrl = 'https://cors.nemanja.top/';
+    $scope.watermark = new Image();
     $scope.instagram = {};
     $scope.instagram.pics = [];
     $scope.instagram.query = 'sky';
@@ -48308,12 +48307,14 @@ app.controller('PhotoEditorController', ['$scope', 'unsplash', function ($scope,
         watermarkScale: 0.5,
         watermarkVerticalPosition: 0.96, // [0,1]
         watermarkOpacity: 1.0,
+        watermarkURL: $window.location.protocol + '//' + $window.location.host + '/assets/images/watermark.png',
         borderShow: true,
         borderColor: '#ffffff',
         borderOpacity: 0.4,
         borderWidth: 25
     };
 
+    $scope.watermark.src = $scope.settings.watermarkURL;
     $scope.output = {};
     $scope.output.image = '';
 
@@ -48396,7 +48397,7 @@ app.controller('PhotoEditorController', ['$scope', 'unsplash', function ($scope,
                 document.getElementById('imageOut').src = canvas.toDataURL('image/png');
             }
         };
-        imageObj.src = 'https://cors.nemanja.top/' + $scope.url; 
+        imageObj.src = deCorsUrl + $scope.url; 
     };
 
     $scope.renderText = function(ctx, text, color, fontSize, textWidth, font, fontWeight, verticalPosition, align) {
@@ -48429,11 +48430,12 @@ app.controller('PhotoEditorController', ['$scope', 'unsplash', function ($scope,
     };
 
     $scope.renderWatermark = function(ctx) {
-        var w = watermark.width * $scope.settings.watermarkScale;
-        var h = watermark.height * $scope.settings.watermarkScale;
+        var w = $scope.watermark.width * $scope.settings.watermarkScale;
+        var h = $scope.watermark.height * $scope.settings.watermarkScale;
         var previousAlpha = ctx.globalAlpha;
+
         ctx.globalAlpha = $scope.settings.watermarkOpacity;
-        ctx.drawImage(watermark, ($scope.settings.width - w)/2, ($scope.settings.height - h) * $scope.settings.watermarkVerticalPosition, w, h);
+        ctx.drawImage($scope.watermark, ($scope.settings.width - w)/2, ($scope.settings.height - h) * $scope.settings.watermarkVerticalPosition, w, h);
         ctx.globalAlpha = previousAlpha;
     };
 
@@ -48487,6 +48489,19 @@ app.controller('PhotoEditorController', ['$scope', 'unsplash', function ($scope,
             b: parseInt(result[3], 16)
         } : null;
     };
+
+    $scope.$watch('settings.watermarkURL', function(newURL, oldURL) {
+        if (oldURL && newURL !== oldURL) {
+            $scope.watermark = new Image();
+            $scope.watermark.crossOrigin = 'Anonymous';
+            $scope.watermark.src = deCorsUrl + newURL;
+            $scope.watermark.onload = function() {
+                $scope.watermark.onload = null;
+                console.log('image loaded from', newURL);
+                $scope.rerender();
+            }
+        }
+    });
 
     $scope.instagram.search();
 }]);
