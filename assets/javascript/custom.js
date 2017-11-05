@@ -1,6 +1,8 @@
-var app = angular.module('PhotoDesigner', ['colorpicker.module', 'ui.bootstrap-slider']);
-
-app.factory('unsplash', ['$http', function($http){
+angular.module('PhotoDesigner', ['colorpicker.module', 'ui.bootstrap-slider', 'LocalStorageModule']).config(['localStorageServiceProvider', 
+    function (localStorageServiceProvider) {
+        localStorageServiceProvider.setPrefix('PhotoDesigner');
+    }
+]).factory('unsplash', ['$http', function($http) {
     return {
         fetchHashtag: function(hashtag, callback) {
             var endPoint = 'https://cors.nemanja.top/https://pablo.buffer.com/ajax/unsplash?search=' + hashtag;
@@ -9,9 +11,7 @@ app.factory('unsplash', ['$http', function($http){
             });
         }
     };
-}]);
-
-app.directive('myEnter', function () {
+}]).directive('myEnter', function () { 
     return function (scope, element, attrs) {
         element.bind('keydown keypress', function (event) {
             if(event.which === 13) {
@@ -22,9 +22,7 @@ app.directive('myEnter', function () {
             }
         });
     };
-});
-
-app.controller('PhotoEditorController', ['$scope', '$window', 'unsplash', function ($scope, $window, unsplash) {
+}).controller('PhotoEditorController', ['$scope', '$window', 'unsplash', 'localStorageService', function ($scope, $window, unsplash, localStorageService) {
     var deCorsUrl = 'https://cors.nemanja.top/';
     $scope.watermark = new Image();
     $scope.instagram = {};
@@ -37,7 +35,7 @@ app.controller('PhotoEditorController', ['$scope', '$window', 'unsplash', functi
 
     $scope.url = '';
 
-    $scope.settings = {
+    $scope.defaultSettings = {
         text1Show: true,
         text1: 'Uvek nosi knjigu sa sobom i više nikada ništa nećeš morati da čekaš!',
         text1Color: '#ffffff',
@@ -73,6 +71,10 @@ app.controller('PhotoEditorController', ['$scope', '$window', 'unsplash', functi
         borderWidth: 25
     };
 
+    var savedSettings = localStorageService.get('settings');
+
+    $scope.settings = !savedSettings ? $scope.defaultSettings : JSON.parse(savedSettings);
+
     $scope.watermark.src = $scope.settings.watermarkURL;
     $scope.output = {};
     $scope.output.image = '';
@@ -94,6 +96,8 @@ app.controller('PhotoEditorController', ['$scope', '$window', 'unsplash', functi
         if ($scope.url === '') {
             return false;
         }
+
+        localStorageService.set('settings', JSON.stringify($scope.settings));
 
         var canvas = document.getElementById('image');
         
@@ -247,6 +251,11 @@ app.controller('PhotoEditorController', ['$scope', '$window', 'unsplash', functi
             g: parseInt(result[2], 16),
             b: parseInt(result[3], 16)
         } : null;
+    };
+
+    $scope.resetSettingsToDefault = function() {
+        $scope.settings = $scope.defaultSettings;
+        $scope.rerender();
     };
 
     $scope.$watch('settings.watermarkURL', function(newURL, oldURL) {

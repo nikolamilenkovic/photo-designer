@@ -68,7 +68,7 @@
                         </span>
                     </div>
                     <div class="input-group search">
-                        <input placeholder="URL..." ng-model="url" ng-model-options="{ updateOn: 'blur' }" name="url" ng-change="rerender()" type="text" class="form-control">
+                        <input placeholder="URL..." ng-model="url" ng-model-options="{ debounce: 500 }" name="url" ng-change="rerender()" type="text" class="form-control">
                         <span class="input-group-btn">
                             <button class="btn btn-default" ng-click="rerender()" type="button">Primeni!</button>
                         </span>
@@ -102,7 +102,7 @@
                                         <div class="panel-body">
                                             <div class="form-group">
                                                 <label for="comment">Tekst</label>
-                                                <textarea data-ng-model-options="{ updateOn: 'blur' }"
+                                                <textarea data-ng-model-options="{ debounce: 500 }"
                                                         data-ng-change="rerender()"
                                                         ng-model="settings.text1"
                                                         id="comment"
@@ -139,7 +139,7 @@
                                             <div class="form-group">
                                                 <label for="text1Size">Veličina fonta</label>
                                                 <slider data-ng-model="settings.text1FontSize" data-ng-change="rerender()" data-min="1" data-step="1" data-max="100"></slider>
-                                                <input data-ng-model="settings.text1FontSize" data-ng-change="rerender()" data-ng-model-options="{ updateOn: 'blur' }" id="text1Size" type="text" class="form-control">
+                                                <input data-ng-model="settings.text1FontSize" data-ng-change="rerender()" data-ng-model-options="{ debounce: 500 }" id="text1Size" type="text" class="form-control">
                                             </div>
                                             <div class="form-group">
                                                 <label for="text1Width">Širina teksta</label>
@@ -166,7 +166,7 @@
                                         <div class="panel-body">
                                             <div class="form-group">
                                                 <label for="comment">Tekst</label>
-                                                <textarea data-ng-model-options="{ updateOn: 'blur' }"
+                                                <textarea data-ng-model-options="{ debounce: 500 }"
                                                         data-ng-change="rerender()"
                                                         ng-model="settings.text2"
                                                         id="comment"
@@ -203,11 +203,11 @@
                                             <div class="form-group">
                                                 <label for="text2Size">Veličina fonta</label>
                                                 <slider data-ng-model="settings.text2FontSize" data-ng-change="rerender()" data-min="1" data-step="1" data-max="100"></slider>
-                                                <input data-ng-model="settings.text2FontSize" data-ng-change="rerender()" data-ng-model-options="{ updateOn: 'blur' }" id="text2Size" type="text" class="form-control">
+                                                <input data-ng-model="settings.text2FontSize" data-ng-change="rerender()" data-ng-model-options="{ debounce: 500 }" id="text2Size" type="text" class="form-control">
                                             </div>
                                             <div class="form-group">
                                                 <label for="text2Width">Širina teksta</label>
-                                                <slider data-ng-model="settings.text2Width" data-ng-change="rerender()" data-min="0.1" data-step="0.1" data-max="1.0" id="text2Width"></slider>
+                                                <slider data-ng-model="settings.text2Width" data-ng-change="rerender()" data-min="0.1" data-step="0.01" data-max="1.0" id="text2Width"></slider>
                                             </div>
                                             <div class="form-group">
                                                 <label for="text2VerticalPosition">Vertikalna pozicija teksta</label>
@@ -296,11 +296,20 @@
                                             <div class="row">
                                                 <div class="col-xs-6 form-group">
                                                     <label for="width">Širina slike (px)</label>
-                                                    <input data-ng-model="settings.width" data-ng-change="rerender()" data-ng-model-options="{ updateOn: 'blur' }" id="width" type="text" class="form-control">
+                                                    <input data-ng-model="settings.width" data-ng-change="rerender()" data-ng-model-options="{ debounce: 500 }" id="width" type="text" class="form-control">
                                                 </div>
                                                 <div class="col-xs-6 form-group">
                                                     <label for="height">Visina slike (px)</label>
-                                                    <input data-ng-model="settings.height" data-ng-change="rerender()" data-ng-model-options="{ updateOn: 'blur' }" id="height" type="text" class="form-control">
+                                                    <input data-ng-model="settings.height" data-ng-change="rerender()" data-ng-model-options="{ debounce: 500 }" id="height" type="text" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-12">
+                                                    <button data-ng-click="resetSettingsToDefault()"
+                                                            type="button" 
+                                                            class="btn btn-default" 
+                                                            title="Sva podešavanja će se vratiti na početnu vrednost">Podrazumevana podešavanja
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
