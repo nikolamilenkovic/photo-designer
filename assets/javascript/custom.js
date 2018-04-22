@@ -157,7 +157,7 @@ angular.module('PhotoDesigner', ['colorpicker.module', 'ui.bootstrap-slider', 'L
                                       $scope.settings.text2Align);
                 }
 
-                document.getElementById('imageOut').src = canvas.toDataURL('image/png');
+                document.getElementById('imageOut').src = canvas.toDataURL('image/jpeg'); 
             }
         };
         imageObj.src = deCorsUrl + $scope.url; 
@@ -256,6 +256,38 @@ angular.module('PhotoDesigner', ['colorpicker.module', 'ui.bootstrap-slider', 'L
     $scope.resetSettingsToDefault = function() {
         $scope.settings = $scope.defaultSettings;
         $scope.rerender();
+    };
+
+    $scope.save = function() {
+        var link = document.getElementById('downloadLink');
+        var image = document.getElementById('image')
+                            .toDataURL('image/jpeg')
+                            .replace('image/jpeg', 'image/octet-stream');
+        link.setAttribute('download', $scope.stripSpecialCharactersFromFileName($scope.settings.text1) + '.jpg');
+        link.setAttribute('href', image);
+        link.click();
+    };
+
+    $scope.stripSpecialCharactersFromFileName = function(fileName) {
+        var stripped = fileName.replace('\\', '')
+                               .replace('\n', '')
+                               .replace('\t', '')
+                               .replace('_', '')
+                               .replace('-', '')
+                               .replace('/', '')
+                               .replace('|', '')
+                               .replace('*', '')
+                               .replace('.', '')
+                               .replace(',', '')
+                               .replace('#', '')
+                               .replace('?', '')
+                               .replace('"', '')
+                               .replace('<', '')
+                               .replace('>', '')
+                               .replace(':', '')
+                               .replace('!', '')
+                               .toLowerCase();
+        return stripped;
     };
 
     $scope.$watch('settings.watermarkURL', function(newURL, oldURL) {
