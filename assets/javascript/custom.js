@@ -5,7 +5,7 @@ angular.module('PhotoDesigner', ['colorpicker.module', 'ui.bootstrap-slider', 'L
 ]).factory('unsplash', ['$http', function($http) {
     return {
         fetchHashtag: function(hashtag, callback) {
-            var endPoint = 'https://cors.nemanja.top/https://pablo.buffer.com/ajax/unsplash?search=' + hashtag;
+            var endPoint = 'http://cors.visasvest.com?url=https://pablo.buffer.com/ajax/unsplash?search=' + hashtag;
             $http.get(endPoint).success(function(response){
                 callback(response.photos);
             });
@@ -23,7 +23,7 @@ angular.module('PhotoDesigner', ['colorpicker.module', 'ui.bootstrap-slider', 'L
         });
     };
 }).controller('PhotoEditorController', ['$scope', '$window', 'unsplash', 'localStorageService', function ($scope, $window, unsplash, localStorageService) {
-    var deCorsUrl = 'https://cors.nemanja.top/';
+    var deCorsUrl = 'http://cors.visasvest.com/';
     $scope.watermark = new Image();
     $scope.instagram = {};
     $scope.instagram.pics = [];
@@ -64,7 +64,7 @@ angular.module('PhotoDesigner', ['colorpicker.module', 'ui.bootstrap-slider', 'L
         watermarkScale: 0.5,
         watermarkVerticalPosition: 0.96, // [0,1]
         watermarkOpacity: 1.0,
-        watermarkURL: $window.location.protocol + '//' + $window.location.host + '/assets/images/watermark.png',
+        watermarkURL: $window.location.protocol + '//' + $window.location.host + '/assets/images/watermark-url.png',
         borderShow: true,
         borderColor: '#ffffff',
         borderOpacity: 0.4,
@@ -297,7 +297,6 @@ angular.module('PhotoDesigner', ['colorpicker.module', 'ui.bootstrap-slider', 'L
             $scope.watermark.src = deCorsUrl + newURL;
             $scope.watermark.onload = function() {
                 $scope.watermark.onload = null;
-                console.log('image loaded from', newURL);
                 $scope.rerender();
             }
         }
