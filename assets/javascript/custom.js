@@ -5,8 +5,8 @@ angular.module('PhotoDesigner', ['colorpicker.module', 'ui.bootstrap-slider', 'L
 ]).factory('unsplash', ['$http', function($http) {
     return {
         fetchHashtag: function(hashtag, callback) {
-            var endPoint = 'http://cors.visasvest.com?url=https://pablo.buffer.com/ajax/unsplash?search=' + hashtag;
-            $http.get(endPoint).success(function(response){
+            var endPoint = 'https://cors.nemanja.top/https://pablo.buffer.com/ajax/unsplash?search=' + hashtag;
+            $http.get(endPoint).success(function(response) {
                 callback(response.photos);
             });
         }
@@ -23,14 +23,14 @@ angular.module('PhotoDesigner', ['colorpicker.module', 'ui.bootstrap-slider', 'L
         });
     };
 }).controller('PhotoEditorController', ['$scope', '$window', 'unsplash', 'localStorageService', function ($scope, $window, unsplash, localStorageService) {
-    var deCorsUrl = 'http://cors.visasvest.com/';
+    var deCorsUrl = 'https://cors.nemanja.top/';
     $scope.watermark = new Image();
     $scope.instagram = {};
     $scope.instagram.pics = [];
     $scope.instagram.query = 'sky';
     $scope.instagram.selected = -1;
 
-    $scope.fonts = ['Arial', 'Tahoma', 'Times New Roman', 'Open Sans', 'Roboto', 'Lato'];
+    $scope.fonts = ['Arial', 'Tahoma', 'Times New Roman', 'Open Sans', 'Roboto', 'Lato', 'Courgette', 'Kollektif', 'League Spartan', 'Montserrat', 'Selima'];
     $scope.fontWeights = ['normal', 'bold', 'bolder', 'lighter', '100', '200', '300', '400', '500', '600', '700', '800', '900'];
 
     $scope.url = '';

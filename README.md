@@ -1,4 +1,4 @@
 # quote-designer
 
-Demo: [quote-designer](https://quote-designer.visasvest.com)
+Demo: [quote-designer](http://dizajnte-citata.visasvest.com)
 
